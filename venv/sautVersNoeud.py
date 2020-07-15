@@ -7,6 +7,15 @@ class SautVersNoeud:
     """
 
     def __init__(self):
-        self.m_GoToEffetId = "go to effet id"
-        self.m_GoToEvtId = "go to evt id"
+        self._m_GoToEffetId = "go to effet id"
+        self._m_GoToEvtId = "go to evt id"
         # TODO MATHIEU : sélectionneur de do to selon proba (SelectionneurDeNoeud)
+
+    def _get_m_GoToEffetId(self):
+        return  self._m_GoToEffetId
+    def _get_m_GoToEvtId(self):
+        return  self._m_GoToEvtId
+
+    # Les SautVersNoeud sont (intégralement?) non mutables
+    m_GoToEffetId = property(_get_m_GoToEffetId)
+    m_GoToEvtId = property(_get_m_GoToEvtId)

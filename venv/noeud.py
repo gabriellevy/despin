@@ -6,11 +6,16 @@ class Noeud:
 
     def __init__(self, id):
         """Constructeur"""
-        self.m_Id = id
+        self._m_Id = id
         # TODO MATHIEU : changeur de perso
         # TODO MATHIEU : modificateur de caracs (SetCarac)
         # TODO MATHIEU : conditions d'exécution (QList<std::shared_ptr<Condition>> m_Conditions;)
 
+    def _get_m_Id(self):
+        return self._m_Id
+
+    # L'identifiant ne peut jamais être modifié après création
+    m_Id = property(_get_m_Id)
 
 # stupid tests
 bernard = Noeud("bernard")
