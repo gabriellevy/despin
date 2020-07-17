@@ -13,6 +13,11 @@ class NoeudNarration(Noeud):
         Noeud.__init__(self, id)
         self.m_Texte = texte
 
+    def __repr__(self):
+        """Affichage quand on entre cet objet dans l'interpréteur"""
+        return "NoeudNarration {}-{}".format(
+            self.m_Id, self.m_Texte)
+
     def AQuelqueChoseAAfficher(self):
         return self.m_Texte != ""
 

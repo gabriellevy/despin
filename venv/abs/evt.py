@@ -14,10 +14,18 @@ class Evt(NoeudNarration):
         NoeudNarration.__init__(self, id, "")
         self.m_Effets = list()
 
-# stupid tests
+    def __repr__(self):
+        """Affichage quand on entre cet objet dans l'interpréteur"""
+        return "Evt {}".format(
+            self.m_Id)
+
+# stupides tests
 truc = Evt()
 print(truc.m_Id)
 print(truc.m_Texte)
+effet1 = Effet("Il se passe des choses dans cet effet ! ")
+truc.m_Effets.append(effet1)
+print(truc.m_Effets[0])
 
 truc2 = Evt()
 print(truc2.m_Id)
