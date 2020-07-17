@@ -1,3 +1,5 @@
+from condition import Condition
+
 class Noeud:
     """
     Structure de base du système destin.
@@ -9,15 +11,10 @@ class Noeud:
         self._m_Id = id
         # TODO MATHIEU : changeur de perso
         # TODO MATHIEU : modificateur de caracs (SetCarac)
-        # TODO MATHIEU : conditions d'exécution (QList<std::shared_ptr<Condition>> m_Conditions;)
+        self.m_Conditions = list()
 
     def _get_m_Id(self):
         return self._m_Id
 
     # L'identifiant ne peut jamais être modifié après création
     m_Id = property(_get_m_Id)
-
-# stupid tests
-bernard = Noeud("bernard")
-print(bernard)
-print(bernard.m_Id)

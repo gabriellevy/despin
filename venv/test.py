@@ -1,6 +1,6 @@
 # sert juste à tester les classes de manière plus rapide
 
-import noeud
+from abs.noeud import Noeud
 
 bernard = Noeud()
 bernard
