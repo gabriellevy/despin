@@ -41,6 +41,11 @@ class Situation:
         mon_pickler.dump(self.m_Caracs)
         fichier.close()
 
+    def __getattr__(self, nom):
+        """Si Python ne trouve pas l'attribut nommé nom, il appelle
+             cette méthode. On affiche une alerte"""
+        print("Alerte ! Il n'y a pas d'attribut '{}' dans l'objet '{}' !".format(nom, self))
+
 situation = Situation()
 situation.Charger()
 print(situation)

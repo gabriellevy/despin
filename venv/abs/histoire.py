@@ -8,3 +8,8 @@ class Hist:
 
     def __init__(self):
         self.m_Evts = list();
+
+    def __getattr__(self, nom):
+        """Si Python ne trouve pas l'attribut nommé nom, il appelle
+             cette méthode. On affiche une alerte"""
+        print("Alerte ! Il n'y a pas d'attribut '{}' dans l'objet '{}' !".format(nom, self))

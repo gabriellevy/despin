@@ -29,3 +29,4 @@ print(truc.m_Effets[0])
 
 truc2 = Evt()
 print(truc2.m_Id)
+print(truc2.existePas)
