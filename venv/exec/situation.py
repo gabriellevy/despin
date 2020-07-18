@@ -15,6 +15,9 @@ class Situation:
     def __init__(self):
         # m_Caracs devra être un dico avec comme identifiant une string carac_id et comme donnée une Carac
         self.m_Caracs = dict()
+        # données décrivant la situation actulle du joueur dans le jeu
+        self.m_EvtCourant = ""
+        self.m_EffetCourant = ""
 
     def Charger(self):
         """Charge une situation depuis un fichier vers cette classe.
@@ -47,6 +50,23 @@ class Situation:
         """Si Python ne trouve pas l'attribut nommé nom, il appelle
              cette méthode. On affiche une alerte"""
         print("Alerte ! Il n'y a pas d'attribut '{}' dans l'objet '{}' !".format(nom, self))
+
+    def __getstate__(self):
+        """
+        Renvoie le dictionnaire d'attributs à sérialiser
+        Sera utile quand l'objet situation ne devra aps être intégralement sauvegardé
+        """
+        dict_attr = dict(self.__dict__)
+        # dict_attr["attribut_temporaire"] = 0
+        return dict_attr
+
+    def __setstate__(self, dict_attr):
+        """
+        Méthode appelée lors de la désérialisation de l'objet
+        Sera utile quand l'objet situation ne devra aps être intégralement sauvegardé
+        """
+        # dict_attr["attribut_temporaire"] = 0
+        self.__dict__ = dict_attr
 
 print("------tests Situation")
 situation = Situation()
