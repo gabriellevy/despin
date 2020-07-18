@@ -16,8 +16,7 @@ class Evt(NoeudNarration):
 
     def __repr__(self):
         """Affichage quand on entre cet objet dans l'interpréteur"""
-        return "Evt {}".format(
-            self.m_Id)
+        return "Evt {}".format(self.m_Id)
 
     def __getitem__(self, index):
         """Comme evt est essentiellement un conteneur d'effets ses fonctions d'accès sont surchargés par commodité"""

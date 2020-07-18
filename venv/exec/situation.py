@@ -1,5 +1,6 @@
 import pickle
 import os
+from abs.carac import Carac
 
 class Situation:
     """
@@ -12,6 +13,7 @@ class Situation:
     nom_fichier = "D:/boulot/python/despin/Situation.despin"
 
     def __init__(self):
+        # m_Caracs devra être un dico avec comme identifiant une string carac_id et comme donnée une Carac
         self.m_Caracs = dict()
 
     def Charger(self):
@@ -49,8 +51,13 @@ class Situation:
 print("------tests Situation")
 situation = Situation()
 situation.Charger()
-print(situation)
-print(situation.m_Caracs)
-situation.m_Caracs["nom"] = "Mathieu Deharbe"
-print(situation.m_Caracs)
+#caracNom = Carac("nom", "Mathieu Deharbe")
+#situation.m_Caracs["nom"] = caracNom
+#caracAge = Carac("age", 20)
+situation.m_Caracs["ageMarjo"] = Carac("age", 33)
+print("avant : {}".format(situation.m_Caracs))
+situation.m_Caracs["age"] += 1
+print("apres : {}".format(situation.m_Caracs))
+print(situation.m_Caracs["ageMarjo"] == situation.m_Caracs["age"])
+print(situation.m_Caracs["age"] == 31)
 situation.Sauver()
