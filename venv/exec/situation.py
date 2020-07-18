@@ -46,6 +46,7 @@ class Situation:
              cette méthode. On affiche une alerte"""
         print("Alerte ! Il n'y a pas d'attribut '{}' dans l'objet '{}' !".format(nom, self))
 
+print("------tests Situation")
 situation = Situation()
 situation.Charger()
 print(situation)

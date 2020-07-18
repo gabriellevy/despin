@@ -24,6 +24,9 @@ class Condition:
     m_CaracId = property(_get_m_CaracId)
     m_Valeur = property(_get_m_Valeur)
 
+
+# stupides tests
+print("------tests Condition")
 condition = Condition("maCarac", 5)
 print(condition.m_Valeur)
 print(condition.Tester())

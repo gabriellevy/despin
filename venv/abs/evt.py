@@ -19,7 +19,21 @@ class Evt(NoeudNarration):
         return "Evt {}".format(
             self.m_Id)
 
+    def __getitem__(self, index):
+        """Comme evt est essentiellement un conteneur d'effets ses fonctions d'accès sont surchargés par commodité"""
+        return self.m_Evts[index]
+    def __setitem__(self, index, effet):
+        """Comme evt est essentiellement un conteneur d'effets ses fonctions d'accès sont surchargés par commodité"""
+        self.m_Effets[index] = effet
+    def __contains__(self, item):
+        """Comme evt est essentiellement un conteneur d'effets ses fonctions d'accès sont surchargés par commodité"""
+        return self.m_Effets.__contains__(item)
+    def __len__(self):
+        """Comme evt est essentiellement un conteneur d'effets ses fonctions d'accès sont surchargés par commodité"""
+        return self.m_Effets.__len__()
+
 # stupides tests
+print("------tests Evt")
 truc = Evt()
 print(truc.m_Id)
 print(truc.m_Texte)
