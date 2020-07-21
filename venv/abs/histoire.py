@@ -1,5 +1,5 @@
-from evt import Evt
-from effet import Effet
+from abs.evt import Evt
+from abs.effet import Effet
 
 class Hist:
     """
@@ -7,7 +7,8 @@ class Hist:
     elle est donc tout aussi indépendante de la manière dont elle est générée ou exécutée
     """
 
-    def __init__(self):
+    def __init__(self, titre):
+        self.m_Titre = titre
         self.m_Evts = list();
 
     def __getattr__(self, nom):
@@ -28,14 +29,11 @@ class Hist:
         """Comme histoire est essentiellement un conteneur d'événements ses fonctions d'accès sont surchargés par commodité"""
         return self.m_Evts.__len__()
 
+    def ParcourirEvts(self):
+        """pseudo itérateur des événements de l'histoire"""
+        for evt in self.m_Evts:
+            yield evt
+
+
 # stupides tests
 print("------tests HISTOIRE")
-truc = Hist()
-evt1 = Evt();
-evt2 = Evt();
-truc.m_Evts.append( evt1 )
-truc.m_Evts.append( evt2 )
-effet1 = Effet("Il se passe des choses dans cet effet d'histoire ! ")
-evt1.m_Effets.append(effet1)
-print(truc[0].m_Effets[0])
-print(truc.__contains__(evt1))

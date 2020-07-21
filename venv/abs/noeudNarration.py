@@ -1,4 +1,4 @@
-from noeud import Noeud
+from abs.noeud import Noeud
 
 class NoeudNarration(Noeud):
     """

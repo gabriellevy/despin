@@ -1,16 +1,12 @@
-from effet import Effet
-from noeudNarration import NoeudNarration
+from abs.effet import Effet
+from abs.noeudNarration import NoeudNarration
 
 class Evt(NoeudNarration):
     """sorte de chapitre groupant les effets"""
 
     compteurId = 0
 
-    def __init__(self, id = ""):
-        if ( id == ""):
-            id = "evt_id_{0}".format(Evt.compteurId)
-            Evt.compteurId += 1
-
+    def __init__(self, id):
         NoeudNarration.__init__(self, id, "")
         self.m_Effets = list()
 
@@ -31,15 +27,10 @@ class Evt(NoeudNarration):
         """Comme evt est essentiellement un conteneur d'effets ses fonctions d'accès sont surchargés par commodité"""
         return self.m_Effets.__len__()
 
+    def ParcourirEffets(self):
+        """pseudo itérateur des effets de l'événement"""
+        for effet in self.m_Effets:
+            yield effet
+
 # stupides tests
 print("------tests Evt")
-truc = Evt()
-print(truc.m_Id)
-print(truc.m_Texte)
-effet1 = Effet("Il se passe des choses dans cet effet ! ")
-truc.m_Effets.append(effet1)
-print(truc.m_Effets[0])
-
-truc2 = Evt()
-print(truc2.m_Id)
-print(truc2.existePas)

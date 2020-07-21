@@ -1,15 +1,11 @@
-from noeudNarration import NoeudNarration
+from abs.noeudNarration import NoeudNarration
 
 class Effet(NoeudNarration):
     """ élément de base pour raconter une histoire"""
 
     compteurId = 0
 
-    def __init__(self, texte, id = ""):
-        if ( id == ""):
-            id = "effet_id_{0}".format(Effet.compteurId)
-            Effet.compteurId += 1
-
+    def __init__(self, texte, id):
         NoeudNarration.__init__(self, id, texte)
 
     def __repr__(self):

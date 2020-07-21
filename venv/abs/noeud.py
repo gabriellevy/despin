@@ -1,4 +1,4 @@
-from condition import Condition
+from abs.condition import Condition
 
 class Noeud:
     """
