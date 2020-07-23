@@ -18,8 +18,14 @@ class Evt(NoeudNarration):
         """Comme evt est essentiellement un conteneur d'effets ses fonctions d'accès sont surchargés par commodité"""
         return self.m_Evts[index]
     def __setitem__(self, index, effet):
-        """Comme evt est essentiellement un conteneur d'effets ses fonctions d'accès sont surchargés par commodité"""
-        self.m_Effets[index] = effet
+        """
+        Comme evt est essentiellement un conteneur d'effets ses fonctions d'accès sont surchargés par commodité
+        setitem affecte un Effet à un index si possible mais sinon l'ajoute à la fin des effets de l'évenement
+        """
+        if ( index < len(self.m_Effets)):
+            self.m_Effets[index] = effet
+        else:
+            self.m_Evts.append(effet)
     def __contains__(self, item):
         """Comme evt est essentiellement un conteneur d'effets ses fonctions d'accès sont surchargés par commodité"""
         return self.m_Effets.__contains__(item)

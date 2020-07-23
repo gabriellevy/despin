@@ -50,6 +50,11 @@ class GenHist:
         return evtFinal
 
     def AjouterEffet(self, texte = "", id = "", evt = ""):
+        if (isinstance(evt, Evt)) != True:
+            raise TypeError( \
+                "Impossible d'ajouter un effet à un objet qui n'est pas un événement mais un : '{0}'".format( \
+                    type(evt)))
+
         if ( id == ""):
             id = "effet_id_{0}".format(Effet.compteurId)
             Effet.compteurId += 1
@@ -71,10 +76,10 @@ print("------tests GenHist")
 truc = GenHist("Rick et morty ! ")
 evt1 = truc.AjouterEvt("id1");
 evt2 = truc.AjouterEvt("id2");
-truc._m_Histoire.m_Evts.append(evt1)
-truc._m_Histoire.m_Evts.append(evt2)
-effet1 = truc.AjouterEffet("Il se passe des choses dans cet effet d'histoire ! ", "effet1")
-effet1 = truc.AjouterEffet("Mais vraiment plein de trucs ", "effet2")
-evt1.m_Effets.append(effet1)
-print(truc._m_Histoire[0].m_Effets[0])
+effet1 = truc.AjouterEffet("Il se passe des choses dans cet effet d'histoire ! ", "effet1", evt2)
+effet2 = truc.AjouterEffet("Mais vraiment plein de trucs ", "effet2", evt2)
+print(truc._m_Histoire[0])
+print(truc._m_Histoire[1])
+print(truc._m_Histoire[1].m_Effets[0])
+print(truc._m_Histoire[1].m_Effets[1])
 print(truc._m_Histoire.__contains__(evt1))

@@ -19,9 +19,17 @@ class Hist:
     def __getitem__(self, index):
         """Comme histoire est essentiellement un conteneur d'événements ses fonctions d'accès sont surchargés par commodité"""
         return self.m_Evts[index]
+
     def __setitem__(self, index, evt):
-        """Comme histoire est essentiellement un conteneur d'événements ses fonctions d'accès sont surchargés par commodité"""
-        self.m_Evts[index] = evt
+        """
+        Comme histoire est essentiellement un conteneur d'événements ses fonctions d'accès sont surchargés par commodité
+        setitem affecte un Evt à un index si possible mais sinon l'ajoute à la fin des évenements
+        """
+        if ( index < len(self.m_Evts)):
+            self.m_Evts[index] = evt
+        else:
+            self.m_Evts.append(evt)
+
     def __contains__(self, item):
         """Comme histoire est essentiellement un conteneur d'événements ses fonctions d'accès sont surchargés par commodité"""
         return self.m_Evts.__contains__(item)
