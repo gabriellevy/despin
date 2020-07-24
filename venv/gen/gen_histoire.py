@@ -1,6 +1,6 @@
 from abs.histoire import Hist
-from abs.evt import Evt
-from abs.effet import Effet
+from abs.evt import *
+from abs.effet import *
 
 class GenHist:
     """
@@ -46,7 +46,7 @@ class GenHist:
                 raise ValueError("Id déjà existant dans l'histoire pour cet evt : {}".format(id))
         evtFinal = Evt(id)
         self._m_DernierEvtGenere = evtFinal
-        self._m_Histoire.m_Evts.append(evtFinal)
+        self._m_Histoire[id] = evtFinal
         return evtFinal
 
     def AjouterEffet(self, texte = "", id = "", evt = ""):
@@ -66,9 +66,9 @@ class GenHist:
         for effet in evt.ParcourirEffets():
             if effet.m_Id == id:
                 raise ValueError("Id déjà existant dans l'événement pour cet effet : {}".format(id))
-        effetFinal = Effet(texte, id)
+        effetFinal = Effet(evt, texte, id)
 
-        evt.m_Effets.append(effetFinal)
+        evt[id] = effetFinal
         return effetFinal
 
 # stupides tests
@@ -76,10 +76,7 @@ print("------tests GenHist")
 truc = GenHist("Rick et morty ! ")
 evt1 = truc.AjouterEvt("id1");
 evt2 = truc.AjouterEvt("id2");
-effet1 = truc.AjouterEffet("Il se passe des choses dans cet effet d'histoire ! ", "effet1", evt2)
-effet2 = truc.AjouterEffet("Mais vraiment plein de trucs ", "effet2", evt2)
-print(truc._m_Histoire[0])
-print(truc._m_Histoire[1])
-print(truc._m_Histoire[1].m_Effets[0])
-print(truc._m_Histoire[1].m_Effets[1])
+effet1 = truc.AjouterEffet("Il se passe des choses dans cet effet d'histoire ! ", evt = evt2)
+effet2 = truc.AjouterEffet("Mais vraiment plein de trucs ", evt = evt2)
+print(truc._m_Histoire)
 print(truc._m_Histoire.__contains__(evt1))
