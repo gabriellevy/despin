@@ -2,6 +2,7 @@ import pickle
 import os
 from abs.carac import Carac
 
+
 class Situation:
     """
     Situation de jeu
@@ -10,7 +11,7 @@ class Situation:
     """
 
     # Nom du fichier stockant la situation
-    nom_fichier = "D:/boulot/python/despin/Situation.despin"
+    NOM_FICHIER = "D:/boulot/python/despin/Situation.despin"
 
     def __init__(self):
         # m_Caracs devra être un dico avec comme identifiant une string carac_id et comme donnée une Carac
@@ -27,9 +28,9 @@ class Situation:
 
         Pour l'instant utilise nom_fichier"""
 
-        if os.path.exists(Situation.nom_fichier):  # Le fichier existe
+        if os.path.exists(Situation.NOM_FICHIER):  # Le fichier existe
             # On le récupère
-            fichier = open(Situation.nom_fichier, "rb")
+            fichier = open(Situation.NOM_FICHIER, "rb")
             mon_depickler = pickle.Unpickler(fichier)
             self.m_Caracs = mon_depickler.load()
             fichier.close()
@@ -41,7 +42,7 @@ class Situation:
         """Cette fonction se charge d'enregistrer les caracs dans le fichier
         nom_fichier"""
 
-        fichier = open(Situation.nom_fichier, "wb")  # On écrase les anciens scores
+        fichier = open(Situation.NOM_FICHIER, "wb")  # On écrase les anciens scores
         mon_pickler = pickle.Pickler(fichier)
         mon_pickler.dump(self.m_Caracs)
         fichier.close()
