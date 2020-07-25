@@ -50,7 +50,10 @@ class GenHist:
         return evtFinal
 
     def AjouterEffet(self, texte = "", id = "", evt = ""):
-        if (isinstance(evt, Evt)) != True:
+        if evt == "":
+            evt = self._m_DernierEvtGenere
+
+        if (    isinstance(evt, Evt)) != True:
             raise TypeError( \
                 "Impossible d'ajouter un effet à un objet qui n'est pas un événement mais un : '{0}'".format( \
                     type(evt)))
@@ -58,9 +61,6 @@ class GenHist:
         if ( id == ""):
             id = "effet_id_{0}".format(Effet.compteurId)
             Effet.compteurId += 1
-
-        if evt == "":
-            evt = self._m_DernierEvtGenere
 
         #tester qu'un effet ayant cet id n'existe pas déjà
         for effet in evt.ParcourirEffets():
@@ -72,6 +72,7 @@ class GenHist:
         return effetFinal
 
 # stupides tests
+'''
 print("------tests GenHist")
 truc = GenHist("Rick et morty ! ")
 evt1 = truc.AjouterEvt("id1");
@@ -80,3 +81,4 @@ effet1 = truc.AjouterEffet("Il se passe des choses dans cet effet d'histoire ! "
 effet2 = truc.AjouterEffet("Mais vraiment plein de trucs ", evt = evt2)
 print(truc._m_Histoire)
 print(truc._m_Histoire.__contains__(evt1))
+'''

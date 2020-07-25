@@ -16,14 +16,14 @@ class Evt(NoeudNarration):
 
     def __repr__(self):
         """Représentation d'un événement"""
-        chaine = "{"
+        chaine = "\n   {"
         premier_passage = True
         for cle, valeur in self.items():
             if not premier_passage:
-                chaine += ", "  # On ajoute la virgule comme séparateur
+                chaine += ",\n   "  # On ajoute la virgule comme séparateur
             else:
                 premier_passage = False
-            chaine += repr(cle) + ": " + repr(valeur)
+            chaine += repr(cle) + ": " + str(valeur)
         chaine += "}"
         return chaine
 
@@ -108,4 +108,4 @@ class Evt(NoeudNarration):
         return list(self.m_Effets)
 
 # stupides tests
-print("------tests Evt")
+'''print("------tests Evt")'''

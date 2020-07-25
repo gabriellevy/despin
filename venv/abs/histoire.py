@@ -18,15 +18,15 @@ class Hist:
     def __repr__(self):
         """Représentation de l'histoire en abrégé"""
 
-        chaine = "{"
+        chaine = self.m_Titre + "\n{\n"
         premier_passage = True
         for cle, valeur in self.items():
             if not premier_passage:
-                chaine += ", "  # On ajoute la virgule comme séparateur
+                chaine += ",\n"  # On ajoute la virgule comme séparateur
             else:
                 premier_passage = False
             chaine += repr(cle) + ": " + repr(valeur)
-        chaine += "}"
+        chaine += "\n}"
         return chaine
 
     def __str__(self):
@@ -111,4 +111,4 @@ class Hist:
 
 
 # stupides tests
-print("------tests HISTOIRE")
+'''print("------tests HISTOIRE")'''

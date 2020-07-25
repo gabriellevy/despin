@@ -18,5 +18,8 @@ class Effet(NoeudNarration):
         """Affichage quand on entre cet objet dans l'interpréteur"""
         return "Effet {}-{}".format(self.m_Id, self.m_Texte)
 
+    def __str__(self):
+        return self.m_Texte
+
 
 

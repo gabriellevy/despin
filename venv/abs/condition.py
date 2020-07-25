@@ -26,7 +26,9 @@ class Condition:
 
 
 # stupides tests
+'''
 print("------tests Condition")
 condition = Condition("maCarac", 5)
 print(condition.m_Valeur)
 print(condition.Tester())
+'''
