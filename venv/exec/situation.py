@@ -2,23 +2,39 @@ import pickle
 import os
 from abs.carac import Carac
 
-
+# passer cette classe en singleton serait peut-être une bonne idée...
 class Situation:
     """
     Situation de jeu
     Etat d'une partie à un instant t avec toutes les informations nécessaires pour la sauvegarder et la recharger
     en particulier la liste intégrale des caractéristiques du perso (qui sont une sous catégorie de la situation de jeu)
+    l'événement et l'effet courants font partie des caracs avec comme id "effetCourant" et "evtCOurant"
     """
 
     # Nom du fichier stockant la situation
     NOM_FICHIER = "D:/boulot/python/despin/Situation.despin"
+    EVT_COURANT = "evtCourant"
+    EFFET_COURANT = "effetCourant"
+    SITUATION = None
 
     def __init__(self):
         # m_Caracs devra être un dico avec comme identifiant une string carac_id et comme donnée une Carac
         self.m_Caracs = dict()
-        # données décrivant la situation actulle du joueur dans le jeu
-        self.m_EvtCourant = ""
-        self.m_EffetCourant = ""
+        Situation.SITUATION = self
+        self.SetEvtCourant(None)
+        self.SetEffetCourant(None)
+
+    def SetEvtCourant(self, evt):
+        self.m_Caracs[Situation.EVT_COURANT] = evt
+
+    def SetEffetCourant(self, effet):
+        self.m_Caracs[Situation.EFFET_COURANT] = effet
+
+    def GetEvtCourant(self):
+        return self.m_Caracs[Situation.EVT_COURANT]
+
+    def GetEffetCourant(self):
+        return self.m_Caracs[Situation.EFFET_COURANT]
 
     def Charger(self):
         """Charge une situation depuis un fichier vers cette classe.
@@ -68,7 +84,7 @@ class Situation:
         """
         # dict_attr["attribut_temporaire"] = 0
         self.__dict__ = dict_attr
-
+'''
 print("------tests Situation")
 situation = Situation()
 situation.Charger()
@@ -82,3 +98,4 @@ print("apres : {}".format(situation.m_Caracs))
 print(situation.m_Caracs["ageMarjo"] == situation.m_Caracs["age"])
 print(situation.m_Caracs["age"] == 31)
 situation.Sauver()
+'''
