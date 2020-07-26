@@ -14,6 +14,13 @@ class GenHist:
     def __init__(self, titre):
         self._m_Histoire = Hist(titre) # histoire générée
 
+    def GenererHistoire(self):
+        """
+        génère toute l'histoire  (donc tous les événements et effets)
+        IMPERATIVEMENT surclasser cette fonction dans les créations d'histoires
+        """
+        return self._m_Histoire
+
     def GenererCaracs(self):
         """
         génère toutes les caracs qui peuvent être visualisées par le joueur
@@ -25,13 +32,6 @@ class GenHist:
     def GenererPersos(self):
         """
         génère tous les persos qui peuvent être joués par le joueur
-        surclasser cette fonction dans les créations d'histoires
-        """
-        pass
-
-    def GenererHistoire(self):
-        """
-        génère toute l'histoire (donc tous les événements et effets)
         surclasser cette fonction dans les créations d'histoires
         """
         pass
