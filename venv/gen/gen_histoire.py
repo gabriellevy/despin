@@ -1,6 +1,7 @@
 from abs.histoire import Hist
 from abs.evt import *
 from abs.effet import *
+from abs.choix import *
 
 class GenHist:
     """
@@ -13,6 +14,8 @@ class GenHist:
 
     def __init__(self, titre):
         self._m_Histoire = Hist(titre) # histoire générée
+        self._m_DernierEvtGenere = None
+        self._m_DernierEffetGenere = None
 
     def GenererHistoire(self):
         """
@@ -67,9 +70,32 @@ class GenHist:
             if effet.m_Id == id:
                 raise ValueError("Id déjà existant dans l'événement pour cet effet : {}".format(id))
         effetFinal = Effet(evt, texte, id)
+        self._m_DernierEffetGenere = effetFinal
 
         evt[id] = effetFinal
         return effetFinal
+
+    def AjouterChoix(self, texte = "", id = "", effet = ""):
+        if effet == "":
+            effet = self._m_DernierEffetGenere
+
+        if ( isinstance(effet, Effet)) != True:
+            raise TypeError( \
+                "Impossible d'ajouter un choix à un objet qui n'est pas un effet mais un : '{0}'".format( \
+                    type(effet)))
+
+        if ( id == ""):
+            id = "choix_id_{0}".format(Choix.compteurId)
+            Choix.compteurId += 1
+
+        #tester qu'un choix ayant cet id n'existe pas déjà
+        for choix in effet.ParcourirChoix():
+            if choix.m_Id == id:
+                raise ValueError("Id déjà existant dans l'effet pour ce choix : {}".format(id))
+        choixFinal = Choix(effet, texte, id)
+
+        effet[id] = choixFinal
+        return choixFinal
 
 # stupides tests
 '''

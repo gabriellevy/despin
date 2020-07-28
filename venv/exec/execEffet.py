@@ -1,4 +1,5 @@
 from exec.execNoeud import *
+from abs.choix import *
 
 class ExecEffet(ExecNoeud):
 
@@ -7,4 +8,8 @@ class ExecEffet(ExecNoeud):
         pass
 
     def LancerNoeud(self):
-        print(self.m_Effet);
+        print(self.m_Effet)
+        index = 1
+        for choix in self.m_Effet.ParcourirChoix():
+            print("{} - {}".format(index, choix))
+            index+=1

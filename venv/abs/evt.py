@@ -11,7 +11,7 @@ class Evt(NoeudNarration):
     def __init__(self, id):
         NoeudNarration.__init__(self, id, "")
         #les deux objets suivants doivent toujours être ordonnés de la même manière : m_IdEffets permettra d'accéder à m_Effets
-        self.m_IdEffets = []  # Liste contenant nos "clés" de la liste d'événements
+        self.m_IdEffets = []  # Liste contenant nos "clés" de la liste d'effets
         self.m_Effets = list()
 
     def __repr__(self):

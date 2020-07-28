@@ -22,10 +22,10 @@ class ExecHistoire:
         #chargement éventuel d'evt et effet courants => APRES le chargement de fichier
         if ( premierEvtId != ""):
             evt = self.m_Histoire[premierEvtId]
-            Situation.SetEvtCourant(evt)
+            Situation.SITUATION.SetEvtCourant(evt)
             if (premierEffetId != ""):
                 effet = evt[premierEffetId]
-                Situation.SetEffetCourant(effet)
+                Situation.SITUATION.SetEffetCourant(effet)
 
         self.LancerEvtEtOuEffetCourant()
 
