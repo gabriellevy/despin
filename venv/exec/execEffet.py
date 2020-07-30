@@ -1,11 +1,11 @@
-from exec.execNoeud import *
-from abs.choix import *
+from exec.execHistoire import *
+from exec.execChoix import *
 
 class ExecEffet(ExecNoeud):
 
     def __init__(self, effet):
+        ExecNoeud.__init__(self, effet)
         self.m_Effet = effet
-        pass
 
     def LancerNoeud(self):
         ExecNoeud.LancerNoeud(self)
@@ -29,3 +29,13 @@ class ExecEffet(ExecNoeud):
                 choisi = indexChoisi > 0 and indexChoisi < index
                 if not choisi:
                     print("Choisissez un numéro parmi les choix proposés.")
+
+            execChoix = ExecChoix(self.m_Effet.m_Choix[indexChoisi-1])
+            ExecHistoire.EXEC_HISTOIRE.m_ExecChoixActuel = execChoix
+
+    def AMarqueUnePause(self):
+        """
+
+        :return: true si ce noeud à exécuter à forcément marqué une pause par exemple si il contiet un choix
+        """
+        return ExecNoeud.AMarqueUnePause(self) and len(self.m_Choix) > 0

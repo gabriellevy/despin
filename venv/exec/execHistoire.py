@@ -1,16 +1,20 @@
-from abs.effet import *
-from abs.evt import *
-from abs.histoire import *
+# from abs.effet import *
+# from abs.evt import *
+# from abs.histoire import *
 from exec.execEvt import *
-from exec.execEffet import *
-from exec.situation import Situation
+# import exec.execEffet
+from exec.situation import *
 
 class ExecHistoire:
 
+    EXEC_HISTOIRE = None
+
     def __init__(self):
         self.m_Situation = Situation()
+        ExecHistoire.EXEC_HISTOIRE = self
         self.m_ExecEvtCourant = None
         self.m_ExecEffetCourant = None
+        self.m_ExecChoixActuel = None
         pass
 
     def LancerHistoire(self, histoire, premierEvtId = "", premierEffetId = ""):
@@ -30,12 +34,35 @@ class ExecHistoire:
         self.LancerEvtEtOuEffetCourant()
 
     def LancerEvtEtOuEffetCourant(self):
-        execEvtActuel = self.GetExecEvtActuel();
-        exeEffetActuel = self.GetExecEffetActuel();
-        assert (execEvtActuel is not None), "execEvtActuel actuel introuvable"
-        assert (exeEffetActuel is not None), "effet_actuel actuel introuvable"
+        quelqueChoseAffiche = False
+        execNoeudActuel = self.GetExecEvtActuel()
+        if execNoeudActuel.m_NoeudAExecuter.m_Execute:
+            execNoeudActuel = self.GetExecEffetActuel()
+        if execNoeudActuel.m_NoeudAExecuter.m_Execute:
+            execNoeudActuel = self.GetExecChoixActuel()
 
-        execEvtActuel.LancerNoeud();
+        assert (not execNoeudActuel.m_NoeudAExecuter.m_Execute), "execNoeudActuel actuel déjà exécuté : \n{}".format(execNoeudActuel)
+        assert (execNoeudActuel is not None), "execNoeudActuel actuel introuvable"
+
+        if not execNoeudActuel.m_NoeudAExecuter.m_Execute:
+            execNoeudActuel.LancerNoeud()
+            execNoeudActuel.m_NoeudAExecuter.m_Execute = True
+            quelqueChoseAffiche = True # bof en fait faire une fonction qui vérifie qu'il y a bien quelque chsoe à afficher
+
+        # on considère que l'exécution d'un noeud qui contient du texte sera toujours bloquée par une validation (entrée?)
+        if not quelqueChoseAffiche:
+            valider = input("Rien à afficher. Validez pour continuer")
+
+        transitionOk = False
+        if execNoeudActuel.AMarqueUnePause():
+            transitionOk = execNoeudActuel.AppliquerGoTo()
+        '''
+        # transition vers noeud courant suivant automatiquement (sans go to):
+        if not transitionOk:
+            if isinstance(execNoeudActuel, ExecEvt):
+        '''
+
+        self.LancerEvtEtOuEffetCourant()
 
     def GetExecEvtActuel(self):
         if self.m_ExecEvtCourant is None:
@@ -49,3 +76,9 @@ class ExecHistoire:
 
     def GetExecEffetActuel(self):
         return self.GetExecEvtActuel().GetExecEffetActuel()
+
+    def GetExecChoixActuel(self):
+        return self.m_ExecChoixActuel
+
+    def GetEvtActuel(self):
+        return self.GetExecEvtActuel().m_Evt

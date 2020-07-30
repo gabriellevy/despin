@@ -52,6 +52,10 @@ class GenHist:
         self._m_Histoire[id] = evtFinal
         return evtFinal
 
+    def AjouterEffetGoToEffet(self, texte = "", id = "", evt = "", goToEffetId = ""):
+        self.AjouterEffet( texte, id, evt)
+        self.m_GoToEffetId = goToEffetId
+
     def AjouterEffet(self, texte = "", id = "", evt = ""):
         if evt == "":
             evt = self._m_DernierEvtGenere
@@ -96,6 +100,10 @@ class GenHist:
 
         effet[id] = choixFinal
         return choixFinal
+
+    def AjouterChoixGoToEffet(self, texte = "", id = "", evt = "", goToEffetId = ""):
+        self.AjouterChoix( texte, id, evt)
+        self.m_GoToEffetId = goToEffetId
 
 # stupides tests
 '''

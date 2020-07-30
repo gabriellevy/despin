@@ -63,6 +63,7 @@ class Situation:
         mon_pickler.dump(self.m_Caracs)
         fichier.close()
 
+
     def __getattr__(self, nom):
         """Si Python ne trouve pas l'attribut nommé nom, il appelle
              cette méthode. On affiche une alerte"""

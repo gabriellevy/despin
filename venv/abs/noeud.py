@@ -12,6 +12,9 @@ class Noeud:
         # TODO MATHIEU : changeur de perso
         # TODO MATHIEU : modificateur de caracs (SetCarac)
         self.m_Conditions = list()
+        self.m_Execute = False # est-ce que ce noeud a déjà été exécuté ?
+        self.m_GoToEvtId = None
+        self.m_GoToEffetId = None
 
     def _get_m_Id(self):
         return self._m_Id
