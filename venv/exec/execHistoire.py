@@ -4,21 +4,19 @@
 from exec.execEvt import *
 # import exec.execEffet
 from exec.situation import *
+from util.singleton import *
 
-class ExecHistoire:
-
-    EXEC_HISTOIRE = None
+class ExecHistoire(metaclass=Singleton):
 
     def __init__(self):
         self.m_Situation = Situation()
-        ExecHistoire.EXEC_HISTOIRE = self
         self.m_ExecEvtCourant = None
-        self.m_ExecEffetCourant = None
         self.m_ExecChoixActuel = None
         pass
 
     def LancerHistoire(self, histoire, premierEvtId = "", premierEffetId = ""):
         self.m_Histoire = histoire
+        situation = Situation()
         # gérer persos et caracs ? Affichage graphique ?
 
         #chargement de fichier
@@ -26,10 +24,10 @@ class ExecHistoire:
         #chargement éventuel d'evt et effet courants => APRES le chargement de fichier
         if ( premierEvtId != ""):
             evt = self.m_Histoire[premierEvtId]
-            Situation.SITUATION.SetEvtCourant(evt)
+            situation.SetEvtCourant(evt)
             if (premierEffetId != ""):
                 effet = evt[premierEffetId]
-                Situation.SITUATION.SetEffetCourant(effet)
+                situation.SetEffetCourant(effet)
 
         self.LancerEvtEtOuEffetCourant()
 
@@ -47,15 +45,17 @@ class ExecHistoire:
         if not execNoeudActuel.m_NoeudAExecuter.m_Execute:
             execNoeudActuel.LancerNoeud()
             execNoeudActuel.m_NoeudAExecuter.m_Execute = True
-            quelqueChoseAffiche = True # bof en fait faire une fonction qui vérifie qu'il y a bien quelque chsoe à afficher
-
-        # on considère que l'exécution d'un noeud qui contient du texte sera toujours bloquée par une validation (entrée?)
-        if not quelqueChoseAffiche:
-            valider = input("Rien à afficher. Validez pour continuer")
+            quelqueChoseAffiche = execNoeudActuel.QuelquechoseAAfficher()
 
         transitionOk = False
-        if execNoeudActuel.AMarqueUnePause():
-            transitionOk = execNoeudActuel.AppliquerGoTo()
+
+        # on considère que l'exécution d'un noeud qui contient du texte sera toujours bloquée par une validation (entrée?)
+        # pas besoin si il a déjà marqué une pause pour un choix par exemple
+        if not execNoeudActuel.AMarqueUnePause():
+            if quelqueChoseAffiche:
+                valider = input("Validez pour continuer")
+
+        transitionOk = execNoeudActuel.AppliquerGoTo()
         '''
         # transition vers noeud courant suivant automatiquement (sans go to):
         if not transitionOk:
@@ -65,20 +65,30 @@ class ExecHistoire:
         self.LancerEvtEtOuEffetCourant()
 
     def GetExecEvtActuel(self):
+        situation = Situation()
         if self.m_ExecEvtCourant is None:
             # premier lancement
-            if (Situation.SITUATION.GetEvtCourant() is None):
+            if (situation.GetEvtCourant() is None):
                 assert len(self.m_Histoire) > 0, "erreur dans GetExecEvtActuel : Il n'y a aucun événement dans l'histoire !"
-                Situation.SITUATION.SetEvtCourant(self.m_Histoire.m_Evts[0])
-            evtCourant = Situation.SITUATION.GetEvtCourant()
-            self.m_ExecEvtCourant = ExecEvt(evtCourant)
+                situation.SetEvtCourant(self.m_Histoire.m_Evts[0])
+            evtCourant = situation.GetEvtCourant()
+            self.m_ExecEvtCourant = ExecEvt(evtCourant, self)
         return self.m_ExecEvtCourant
 
     def GetExecEffetActuel(self):
         return self.GetExecEvtActuel().GetExecEffetActuel()
+
+    def SetExecEffetActuel(self, execEffetActuel):
+        self.GetExecEvtActuel().SetExecEffetActuel(execEffetActuel)
 
     def GetExecChoixActuel(self):
         return self.m_ExecChoixActuel
 
     def GetEvtActuel(self):
         return self.GetExecEvtActuel().m_Evt
+
+    def GoToEffetId(self, effetId):
+        situation = Situation()
+        effetToGoTo = self.GetEvtActuel()[effetId]
+        situation.SetEffetCourant(effetToGoTo)
+        self.SetExecEffetActuel(ExecEffet(effetToGoTo, self))

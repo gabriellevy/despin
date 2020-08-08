@@ -3,8 +3,9 @@ from exec.execHistoire import *
 
 class ExecNoeud:
 
-    def __init__(self, noeudAExecuter):
+    def __init__(self, noeudAExecuter, execHistoire):
         self.m_NoeudAExecuter = noeudAExecuter
+        self.m_ExecHistoire = execHistoire
 
     def ExecuterActionsNoeud(self, noeudAExecuter):
         """
@@ -16,6 +17,12 @@ class ExecNoeud:
     def LancerNoeud(self):
 
         self.m_NoeudAExecuter.m_Execute = True
+
+    def QuelquechoseAAfficher(self):
+        """
+        :return: True si l'execNoeud doit faire une pause pour afficher quelque chose
+        """
+        return False
 
     def AMarqueUnePause(self):
         """
@@ -30,5 +37,7 @@ class ExecNoeud:
         :return: true si il y a un go to qui a été appliqué
         """
         if ( self.m_NoeudAExecuter.m_GoToEffetId != None):
-            effetToGoTo = ExecHistoire.EXEC_HISTOIRE.GetEvtActuel()[self.m_NoeudAExecuter.m_GoToEffetId]
-            Situation.SITUATION.SetEffetCourant(effetToGoTo)
+            self.m_ExecHistoire.GoToEffetId(self.m_NoeudAExecuter.m_GoToEffetId)
+            return True
+
+        return False

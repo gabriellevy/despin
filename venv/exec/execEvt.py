@@ -4,24 +4,31 @@ from exec.execEffet import ExecEffet
 
 class ExecEvt(ExecNoeud):
 
-    def __init__(self, evt):
-        ExecNoeud.__init__(self, evt)
+    def __init__(self, evt, execHistoire):
+        ExecNoeud.__init__(self, evt, execHistoire)
         self.m_Evt = evt
-        self.m_ExecEffetCourant = None
+        self.m_ExecEffetActuel = None
 
     def GetExecEffetActuel(self):
-        if self.m_ExecEffetCourant is None:
+        situation = Situation()
+        if self.m_ExecEffetActuel is None:
             # premier effet
-            if (Situation.SITUATION.GetEffetCourant() is None):
+            if (situation.GetEffetCourant() is None):
                 assert len(self.m_Evt) > 0, "erreur dans GetExecEffetActuel : Il n'y a aucun effet dans l'événement '{}'!".format(self.m_Evt)
-                Situation.SITUATION.SetEffetCourant(self.m_Evt.m_Effets[0])
-            effetCourant = Situation.SITUATION.GetEffetCourant()
-            self.m_ExecEffetCourant = ExecEffet(effetCourant)
-        return self.m_ExecEffetCourant
+                situation.SetEffetCourant(self.m_Evt.m_Effets[0])
+            effetCourant = situation.GetEffetCourant()
+            self.m_ExecEffetActuel = ExecEffet(effetCourant, self.m_ExecHistoire)
+        return self.m_ExecEffetActuel
+
+    def SetExecEffetActuel(self, execEffetActuel):
+        self.m_ExecEffetActuel = execEffetActuel
 
     def LancerNoeud(self):
         print("Événement {}\n-----------------------".format(self.m_Evt.m_Id));
         ExecNoeud.LancerNoeud(self)
+
+    def QuelquechoseAAfficher(self):
+        return self.m_Evt.m_Texte != None and self.m_Evt.m_Texte != ""
 
     def __repr__(self):
         """Représentation d'un exec événement"""

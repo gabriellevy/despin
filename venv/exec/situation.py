@@ -1,9 +1,10 @@
 import pickle
 import os
 from abs.carac import Carac
+from util.singleton import *
 
 # passer cette classe en singleton serait peut-être une bonne idée...
-class Situation:
+class Situation(metaclass=Singleton):
     """
     Situation de jeu
     Etat d'une partie à un instant t avec toutes les informations nécessaires pour la sauvegarder et la recharger
@@ -15,12 +16,10 @@ class Situation:
     NOM_FICHIER = "D:/boulot/python/despin/Situation.despin"
     EVT_COURANT = "evtCourant"
     EFFET_COURANT = "effetCourant"
-    SITUATION = None
 
     def __init__(self):
         # m_Caracs devra être un dico avec comme identifiant une string carac_id et comme donnée une Carac
         self.m_Caracs = dict()
-        Situation.SITUATION = self
         self.SetEvtCourant(None)
         self.SetEffetCourant(None)
 

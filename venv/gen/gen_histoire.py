@@ -53,8 +53,8 @@ class GenHist:
         return evtFinal
 
     def AjouterEffetGoToEffet(self, texte = "", id = "", evt = "", goToEffetId = ""):
-        self.AjouterEffet( texte, id, evt)
-        self.m_GoToEffetId = goToEffetId
+        effet = self.AjouterEffet( texte, id, evt)
+        effet.m_GoToEffetId = goToEffetId
 
     def AjouterEffet(self, texte = "", id = "", evt = ""):
         if evt == "":
@@ -102,8 +102,8 @@ class GenHist:
         return choixFinal
 
     def AjouterChoixGoToEffet(self, texte = "", id = "", evt = "", goToEffetId = ""):
-        self.AjouterChoix( texte, id, evt)
-        self.m_GoToEffetId = goToEffetId
+        choixFinal = self.AjouterChoix( texte, id, evt)
+        choixFinal.m_GoToEffetId = goToEffetId
 
 # stupides tests
 '''
