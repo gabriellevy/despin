@@ -84,6 +84,10 @@ class Situation(metaclass=Singleton):
         """
         # dict_attr["attribut_temporaire"] = 0
         self.__dict__ = dict_attr
+
+    def SetCarac(self, idCarac, valCarac):
+        self.m_Caracs[idCarac] = valCarac
+
 '''
 print("------tests Situation")
 situation = Situation()

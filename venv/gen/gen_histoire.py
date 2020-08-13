@@ -2,6 +2,7 @@ from abs.histoire import Hist
 from abs.evt import *
 from abs.effet import *
 from abs.choix import *
+from abs.perso import *
 
 class GenHist:
     """
@@ -30,7 +31,9 @@ class GenHist:
         (d'autres caracs peuvent être générées et invisibles n'importe quand dans l'aventure)
         surclasser cette fonction dans les créations d'histoires
         """
-        pass
+        perso = Perso()
+        self._m_Histoire.m_Perso = perso
+        return perso
 
     def GenererPersos(self):
         """

@@ -3,7 +3,7 @@
 class Carac:
     """
     caractéristique de base avec un identifiant et une valeur qui peut être un nombre ou une string
-    pour els caracs plus spécifiques, les faire hériter de cette classe
+    pour les caracs plus spécifiques, les faire hériter de cette classe
     """
 
     def __init__(self, id, valeur):

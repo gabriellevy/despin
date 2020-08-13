@@ -5,6 +5,7 @@ from exec.execEvt import *
 # import exec.execEffet
 from exec.situation import *
 from util.singleton import *
+from exec.execPerso import *
 
 class ExecHistoire(metaclass=Singleton):
 
@@ -12,12 +13,13 @@ class ExecHistoire(metaclass=Singleton):
         self.m_Situation = Situation()
         self.m_ExecEvtCourant = None
         self.m_ExecChoixActuel = None
-        pass
+        self.m_ExecPerso = None
 
     def LancerHistoire(self, histoire, premierEvtId = "", premierEffetId = ""):
         self.m_Histoire = histoire
         situation = Situation()
         # gérer persos et caracs ? Affichage graphique ?
+        self.m_ExecPerso = ExecPerso(histoire.m_Perso)
 
         #chargement de fichier
 
@@ -46,6 +48,7 @@ class ExecHistoire(metaclass=Singleton):
             execNoeudActuel.LancerNoeud()
             execNoeudActuel.m_NoeudAExecuter.m_Execute = True
             quelqueChoseAffiche = execNoeudActuel.QuelquechoseAAfficher()
+            print(self.m_ExecPerso) # affichage des caracs actuelles du personnage (mise à jour)
 
         transitionOk = False
 

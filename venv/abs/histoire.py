@@ -10,6 +10,7 @@ class Hist:
 
     def __init__(self, titre):
         self.m_Titre = titre
+        self.m_Perso = None
 
         #les deux objets suivants doivent toujours être ordonnés de la même manière : m_IdEvts permettra d'accéder à m_Evts
         self.m_IdEvts = []  # Liste contenant nos "clés" de la liste d'événements
