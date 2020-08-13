@@ -40,7 +40,7 @@ class ExecEffet(ExecNoeud):
 
         :return: true si ce noeud à exécuter à forcément marqué une pause par exemple si il contiet un choix
         """
-        return ExecNoeud.AMarqueUnePause(self) and len(self.m_Choix) > 0
+        return ExecNoeud.AMarqueUnePause(self) or len(self.m_Effet.m_Choix) > 0
 
     def __repr__(self):
         """Représentation d'un exec effet"""
