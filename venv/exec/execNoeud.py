@@ -9,14 +9,16 @@ class ExecNoeud:
 
     def ExecuterActionsNoeud(self, noeudAExecuter):
         """
-        exécute tout ce qui est défini dans ce noeud (changements de caracs, go to un autre effet etc...
+        exécute tout ce qui est défini dans ce noeud (changements de caracs, etc...
         :param noeudAExecuter:
         """
         self.m_NoeudAExecuter = noeudAExecuter
 
     def LancerNoeud(self):
-
         self.m_NoeudAExecuter.m_Execute = True
+
+        for changeCarac in self.m_NoeudAExecuter.m_SetsCaracs:
+            changeCarac.Appliquer()
 
     def QuelquechoseAAfficher(self):
         """

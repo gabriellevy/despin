@@ -1,4 +1,5 @@
 from abs.condition import Condition
+from abs.setCarac import *
 
 class Noeud:
     """
@@ -15,6 +16,7 @@ class Noeud:
         self.m_Execute = False # est-ce que ce noeud a déjà été exécuté ?
         self.m_GoToEvtId = None
         self.m_GoToEffetId = None
+        self.m_SetsCaracs = list()
 
     def _get_m_Id(self):
         return self._m_Id
@@ -26,3 +28,29 @@ class Noeud:
         """Si Python ne trouve pas l'attribut nommé nom, il appelle
              cette méthode. On affiche une alerte"""
         print("Alerte ! Il n'y a pas d'attribut '{}' dans l'objet '{}' !".format(nom, self))
+
+
+    def AjouterRetireurACarac( id, valeur):
+        setCarac = SetCarac(id, ModifCaracType.RETIRE, valeur)
+        self.m_SetsCaracs.append(setCarac)
+"""
+{
+    std::shared_ptr<SetCarac> set_carac = make_shared<SetCarac>(ModifCaracType::RetireDeCarac, id, QString::number(valeur));
+    m_SetCaracs.append(set_carac);
+    return set_carac;
+}
+
+std::shared_ptr<SetCarac> Noeud::AjouterRetireurACarac(QString id, QString valeur)
+{
+    std::shared_ptr<SetCarac> set_carac = make_shared<SetCarac>(ModifCaracType::RetireDeCarac, id, valeur);
+    m_SetCaracs.append(set_carac);
+    return set_carac;
+}
+
+std::shared_ptr<SetCarac> Noeud::AjouterAjouteurACarac(QString id, QString valeur)
+{
+    std::shared_ptr<SetCarac> set_carac = make_shared<SetCarac>(ModifCaracType::AddToCarac, id, valeur);
+    m_SetCaracs.append(set_carac);
+    return set_carac;
+}
+"""

@@ -88,6 +88,12 @@ class Situation(metaclass=Singleton):
     def SetCarac(self, idCarac, valCarac):
         self.m_Caracs[idCarac] = valCarac
 
+    def AjouterACarac(self, idCarac, valCarac):
+        self.m_Caracs[idCarac] += valCarac
+
+    def RetirerACarac(self, idCarac, valCarac):
+        self.m_Caracs[idCarac] -= valCarac
+
 '''
 print("------tests Situation")
 situation = Situation()

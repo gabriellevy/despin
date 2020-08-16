@@ -3,6 +3,7 @@ from abs.evt import *
 from abs.effet import *
 from abs.choix import *
 from abs.perso import *
+from abs.setCarac import *
 
 class GenHist:
     """
@@ -103,6 +104,19 @@ class GenHist:
 
         effet[id] = choixFinal
         return choixFinal
+
+    def AjouterRetireurCarac(self, caracId, valeur, effet = ""):
+        if effet == "":
+            effet = self._m_DernierEffetGenere
+
+        if ( isinstance(effet, Effet)) != True:
+            raise TypeError( \
+                "Impossible d'ajouter un set carac à un objet qui n'est pas un effet mais un : '{0}'".format( \
+                    type(effet)))
+
+        setCarac = SetCarac(caracId, ModifCaracType.RETIRE, valeur)
+        effet.m_SetsCaracs.append(setCarac)
+        return setCarac
 
     def AjouterChoixGoToEffet(self, texte = "", id = "", evt = "", goToEffetId = ""):
         choixFinal = self.AjouterChoix( texte, id, evt)
