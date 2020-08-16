@@ -105,7 +105,7 @@ class GenHist:
         effet[id] = choixFinal
         return choixFinal
 
-    def AjouterRetireurCarac(self, caracId, valeur, effet = ""):
+    def AjouterModificateurCarac(self, setCarac, effet = ""):
         if effet == "":
             effet = self._m_DernierEffetGenere
 
@@ -114,9 +114,20 @@ class GenHist:
                 "Impossible d'ajouter un set carac à un objet qui n'est pas un effet mais un : '{0}'".format( \
                     type(effet)))
 
-        setCarac = SetCarac(caracId, ModifCaracType.RETIRE, valeur)
         effet.m_SetsCaracs.append(setCarac)
         return setCarac
+
+    def AjouterRetireurCarac(self, caracId, valeur, effet = ""):
+        setCarac = SetCarac(caracId, ModifCaracType.RETIRE, valeur)
+        return self.AjouterModificateurCarac(setCarac, effet)
+
+    def AjouterAjouteurCarac(self, caracId, valeur, effet = ""):
+        setCarac = SetCarac(caracId, ModifCaracType.AJOUTE, valeur)
+        return self.AjouterModificateurCarac(setCarac, effet)
+
+    def AjouterSetteurCarac(self, caracId, valeur, effet = ""):
+        setCarac = SetCarac(caracId, ModifCaracType.SET, valeur)
+        return self.AjouterModificateurCarac(setCarac, effet)
 
     def AjouterChoixGoToEffet(self, texte = "", id = "", evt = "", goToEffetId = ""):
         choixFinal = self.AjouterChoix( texte, id, evt)
