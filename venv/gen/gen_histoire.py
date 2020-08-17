@@ -129,6 +129,12 @@ class GenHist:
         setCarac = SetCarac(caracId, ModifCaracType.SET, valeur)
         return self.AjouterModificateurCarac(setCarac, effet)
 
+    def AjouterSetteurCaracTrue(self, caracId, effet = ""):
+        return self.AjouterSetteurCarac(caracId, "1", effet)
+
+    def AjouterSetteurCaracFalse(self, caracId, effet = ""):
+        return self.AjouterSetteurCarac(caracId, "", effet)
+
     def AjouterChoixGoToEffet(self, texte = "", id = "", evt = "", goToEffetId = ""):
         choixFinal = self.AjouterChoix( texte, id, evt)
         choixFinal.m_GoToEffetId = goToEffetId
