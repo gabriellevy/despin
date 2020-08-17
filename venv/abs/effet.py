@@ -1,5 +1,6 @@
 from abs.noeudNarration import NoeudNarration
 from abs.evt import *
+from abs.lancerDe import *
 
 class Effet(NoeudNarration):
     """
@@ -18,6 +19,10 @@ class Effet(NoeudNarration):
         NoeudNarration.__init__(self, id, texte)
         self.m_IdChoix = []  # Liste contenant nos "clés" de la liste de choix
         self.m_Choix = list()
+        self.m_LancerDe = None
+
+    def AjouterLancerDe(self, nbDes, callback, params):
+        self.m_LancerDe = LancerDe(nbDes, callback, params)
 
     def __repr__(self):
         """Affichage quand on entre cet objet dans l'interpréteur"""

@@ -1,4 +1,5 @@
 from exec.execChoix import *
+from abs.lancerDe import *
 
 class ExecEffet(ExecNoeud):
 
@@ -11,6 +12,14 @@ class ExecEffet(ExecNoeud):
 
         #affichage du texte
         print(self.m_Effet)
+
+        if ( self.m_Effet.m_LancerDe != None):
+            nbDes = self.m_Effet.m_LancerDe.m_NbDes
+            txt = ""
+            if ( nbDes > 1 ):
+                txt = "s"
+            onsenfout = input("Validez pour lancer {} dé{}".format(nbDes, txt))
+            self.m_Effet.m_LancerDe.LancerDe(effetActuel= self.m_Effet)
 
         if (len(self.m_Effet.m_Choix) > 1):  # il y a un choix qui se pose :
             index = 1
