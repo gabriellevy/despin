@@ -60,7 +60,7 @@ class GenHist:
         effet = self.AjouterEffet( texte, id, evt)
         effet.m_GoToEffetId = goToEffetId
 
-    def AjouterEffet(self, texte = "", id = "", evt = ""):
+    def AjouterEffet(self, texte = "", id = "", evt = "", goToEffetId=""):
         if evt == "":
             evt = self._m_DernierEvtGenere
 
@@ -78,6 +78,8 @@ class GenHist:
             if effet.m_Id == id:
                 raise ValueError("Id déjà existant dans l'événement pour cet effet : {}".format(id))
         effetFinal = Effet(evt, texte, id)
+        if goToEffetId != "":
+            effetFinal.m_GoToEffetId = goToEffetId
         self._m_DernierEffetGenere = effetFinal
 
         evt[id] = effetFinal
