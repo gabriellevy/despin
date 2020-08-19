@@ -18,8 +18,12 @@ class ExecEffet(ExecNoeud):
             txt = ""
             if ( nbDes > 1 ):
                 txt = "s"
-            onsenfout = input("Validez pour lancer {} dé{}".format(nbDes, txt))
-            self.m_Effet.m_LancerDe.LancerDe(effetActuel= self.m_Effet)
+            arreterLancerDe = False
+            while not arreterLancerDe:
+                onsenfout = input("Validez pour lancer {} dé{}".format(nbDes, txt))
+                arreterLancerDe = self.m_Effet.m_LancerDe.LancerDe(effetActuel= self.m_Effet)
+                if not arreterLancerDe:
+                    print("")
 
         if (len(self.m_Effet.m_Choix) > 1):  # il y a un choix qui se pose :
             index = 1

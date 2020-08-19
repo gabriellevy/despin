@@ -24,5 +24,10 @@ class LancerDe:
         return res
 
     def LancerDe(self, effetActuel):
+        """
+        Lancement d'un dé au cours d'un effet
+        :param effetActuel:
+        :return: True si l'exécution est terminée, False si il faut lancer les dés une nouvelle fois en restant dans son effet actuel
+        """
         if ( self.m_Callback != None):
             self.m_Callback(self.m_CallbackParams)

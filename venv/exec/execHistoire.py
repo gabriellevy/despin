@@ -48,7 +48,7 @@ class ExecHistoire(metaclass=Singleton):
             execNoeudActuel.LancerNoeud()
             execNoeudActuel.m_NoeudAExecuter.m_Execute = True
             quelqueChoseAffiche = execNoeudActuel.QuelquechoseAAfficher()
-            print(self.m_ExecPerso) # affichage des caracs actuelles du personnage (mise à jour)
+            print(self.m_ExecPerso) # affichage des caracs actuelles du personnage (mises à jour)
 
         transitionOk = False
 
