@@ -14,6 +14,10 @@ class LancerDe:
         self.m_NbDes = nbDes
         self.m_Callback = callback
         self.m_CallbackParams = callbackParams
+        txt = ""
+        if (nbDes > 1):
+            txt = "s"
+        self.m_MessageLancerDe = "Validez pour lancer {} dé{}".format(nbDes, txt)
 
     def CalculerResDe(self):
         res = 0
@@ -23,7 +27,7 @@ class LancerDe:
             i+=1
         return res
 
-    def LancerDe(self, effetActuel):
+    def LancerDe(self, effetActuel, input):
         """
         Lancement d'un dé au cours d'un effet
         :param effetActuel:

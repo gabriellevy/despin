@@ -15,13 +15,10 @@ class ExecEffet(ExecNoeud):
 
         if ( self.m_Effet.m_LancerDe != None):
             nbDes = self.m_Effet.m_LancerDe.m_NbDes
-            txt = ""
-            if ( nbDes > 1 ):
-                txt = "s"
             arreterLancerDe = False
             while not arreterLancerDe:
-                onsenfout = input("Validez pour lancer {} dé{}".format(nbDes, txt))
-                arreterLancerDe = self.m_Effet.m_LancerDe.LancerDe(effetActuel= self.m_Effet)
+                envoi = input(self.m_Effet.m_LancerDe.m_MessageLancerDe)
+                arreterLancerDe = self.m_Effet.m_LancerDe.LancerDe(effetActuel= self.m_Effet, input=envoi)
                 if not arreterLancerDe:
                     print("")
 

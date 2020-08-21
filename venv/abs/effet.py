@@ -10,7 +10,7 @@ class Effet(NoeudNarration):
 
     compteurId = 0
 
-    def __init__(self, evt, texte, id):
+    def __init__(self, evt, texte, id, titre):
         if (isinstance(evt, Evt)) != True:
             raise TypeError( \
                 "Impossible de créer un effet avec comme 'evt' un objet qui n'est pas un événement mais un : '{0}'".format( \
@@ -20,6 +20,7 @@ class Effet(NoeudNarration):
         self.m_IdChoix = []  # Liste contenant nos "clés" de la liste de choix
         self.m_Choix = list()
         self.m_LancerDe = None
+        self.m_Titre = titre
 
     def AjouterLancerDe(self, nbDes, callback, params):
         self.m_LancerDe = LancerDe(nbDes, callback, params)
@@ -29,7 +30,10 @@ class Effet(NoeudNarration):
         return "Effet {}-{}".format(self.m_Id, self.m_Texte)
 
     def __str__(self):
-        return self.m_Texte
+        txt = ""
+        if ( self.m_Titre != "" ):
+            txt = "------------------ " + self.m_Titre + " --------------------\n"
+        return txt + self.m_Texte
 
     def ParcourirChoix(self):
         """ pseudo itérateur des choix de l'effet """

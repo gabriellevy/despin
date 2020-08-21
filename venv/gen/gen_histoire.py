@@ -60,11 +60,11 @@ class GenHist:
         effet = self.AjouterEffet( texte, id, evt)
         effet.m_GoToEffetId = goToEffetId
 
-    def AjouterEffet(self, texte = "", id = "", evt = "", goToEffetId=""):
+    def AjouterEffet(self, texte = "", id = "", evt = "", goToEffetId="", titre=""):
         if evt == "":
             evt = self._m_DernierEvtGenere
 
-        if (    isinstance(evt, Evt)) != True:
+        if (  isinstance(evt, Evt)) != True:
             raise TypeError( \
                 "Impossible d'ajouter un effet à un objet qui n'est pas un événement mais un : '{0}'".format( \
                     type(evt)))
@@ -77,7 +77,7 @@ class GenHist:
         for effet in evt.ParcourirEffets():
             if effet.m_Id == id:
                 raise ValueError("Id déjà existant dans l'événement pour cet effet : {}".format(id))
-        effetFinal = Effet(evt, texte, id)
+        effetFinal = Effet(evt, texte, id, titre)
         if goToEffetId != "":
             effetFinal.m_GoToEffetId = goToEffetId
         self._m_DernierEffetGenere = effetFinal
