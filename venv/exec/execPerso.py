@@ -3,8 +3,8 @@ from exec.situation import Situation
 class ExecPerso():
     """
     gestion du personnage en particulier son affichage
-    les caracs du eprsos (toutes les caracs en fait) sont stockées dans Situation mais leur affichage ou non est déterminé ici
-    à écrserer pour els affichages plus élaborés
+    les caracs du persos (toutes les caracs en fait) sont stockées dans Situation mais leur affichage ou non est déterminé ici
+    à écraser pour les affichages plus élaborés
     """
 
     def __init__(self, perso):
@@ -16,5 +16,5 @@ class ExecPerso():
         chaine = "Caracs personnage : "
         chaine += "\n"
         for caracId in self.m_Perso.m_CaracsAffichees:
-            chaine += "{} : {}\n".format(caracId, situation.m_Caracs[caracId])
+            chaine += "  {}\n".format(situation.m_Caracs[caracId])
         return chaine

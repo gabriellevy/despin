@@ -18,8 +18,7 @@ class Situation(metaclass=Singleton):
     EFFET_COURANT = "effetCourant"
 
     def __init__(self):
-        # m_Caracs devra être un dico avec comme identifiant une string carac_id et comme donnée une Carac
-        self.m_Caracs = dict()
+        self.m_Caracs = dict() # self.m_Caracs[str idCarac] = Carac
         self.SetEvtCourant(None)
         self.SetEffetCourant(None)
 
@@ -85,14 +84,28 @@ class Situation(metaclass=Singleton):
         # dict_attr["attribut_temporaire"] = 0
         self.__dict__ = dict_attr
 
+    def CreerCarac(self, idCarac, valCarac):
+        carac = Carac(idCarac, valCarac)
+        self.m_Caracs[idCarac] = carac
+        return carac
+
     def SetCarac(self, idCarac, valCarac):
-        self.m_Caracs[idCarac] = valCarac
+        # si la carac n'existe pas encore, la créer
+        if not idCarac in self.m_Caracs:
+            self.CreerCarac(idCarac, valCarac)
+
+        carac = self.m_Caracs[idCarac]
+        assert isinstance(carac, Carac)
+
+        carac.m_Valeur = valCarac
 
     def AjouterACarac(self, idCarac, valCarac):
-        self.m_Caracs[idCarac] += valCarac
+        finalVal = self.m_Caracs[idCarac].m_Valeur + valCarac
+        self.SetCarac(idCarac, finalVal)
 
     def RetirerACarac(self, idCarac, valCarac):
-        self.m_Caracs[idCarac] -= valCarac
+        finalVal = self.m_Caracs[idCarac].m_Valeur - valCarac
+        self.SetCarac(idCarac, finalVal)
 
 '''
 print("------tests Situation")

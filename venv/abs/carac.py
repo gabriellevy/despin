@@ -72,3 +72,7 @@ class Carac:
     def __repr__(self):
         """Affichage quand on entre cet objet dans l'interpréteur"""
         return "Carac '{}', Valeur '{}'".format(self.m_Id, self.m_Valeur)
+
+    def __str__(self):
+        """Affichage quand on affiche l'objet (print)"""
+        return "{} : {}".format(self.m_Id, self.m_Valeur)
