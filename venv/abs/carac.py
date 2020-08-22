@@ -6,8 +6,11 @@ class Carac:
     pour les caracs plus spécifiques, les faire hériter de cette classe
     """
 
-    def __init__(self, id, valeur):
+    def __init__(self, id, valeur, valeurMin = "", valeurMax = ""):
         self.m_Id = id
+        self.m_ValeurMin = valeurMin
+        self.m_ValeurMax = valeurMax
+        # attention m_Valeur doit être initialisé en dernier à cause du surclassage de l'opérateur d'affectation
         self.m_Valeur = valeur
 
     def __add__(self, other):
@@ -92,4 +95,7 @@ class Carac:
         """
         important dans les caracs surclassant cette carac de base : il peut y avoir un control ou une action à effectuer lors d'une modif de carac
         """
-        pass
+        if self.m_ValeurMin != "" and self.m_Valeur < self.m_ValeurMin:
+            self.m_Valeur = self.m_ValeurMin
+        if self.m_ValeurMax != "" and self.m_Valeur > self.m_ValeurMax:
+            self.m_Valeur = self.m_ValeurMax

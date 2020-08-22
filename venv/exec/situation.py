@@ -98,14 +98,14 @@ class Situation(metaclass=Singleton):
         self.m_Caracs[carac.m_Id] = carac
         return carac
 
-    def CreerCarac(self, idCarac, valCarac):
-        carac = Carac(idCarac, valCarac)
+    def CreerCarac(self, idCarac, valCarac, valeurMin = "", valeurMax = ""):
+        carac = Carac(idCarac, valCarac, valeurMin, valeurMax)
         return self.AjouterCarac(carac)
 
-    def SetCarac(self, idCarac, valCarac):
+    def SetCarac(self, idCarac, valCarac, valeurMin = "", valeurMax = ""):
         # si la carac n'existe pas encore, la créer
         if not idCarac in self.m_Caracs:
-            self.CreerCarac(idCarac, valCarac)
+            self.CreerCarac(idCarac, valCarac, valeurMin, valeurMax)
 
         carac = self.m_Caracs[idCarac]
         assert isinstance(carac, Carac)

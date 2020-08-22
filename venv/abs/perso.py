@@ -9,10 +9,10 @@ class Perso():
     def __init__(self):
         self.m_CaracsAffichees = list()
 
-    def CreerCaracVisible(self, idCarac, valCarac):
+    def CreerCaracVisible(self, idCarac, valCarac, valeurMin = "", valeurMax = ""):
         self.m_CaracsAffichees.append(idCarac)
         situation = Situation()
-        situation.SetCarac(idCarac, valCarac)
+        situation.SetCarac(idCarac, valCarac, valeurMin, valeurMax)
 
     def AjouterCaracVisible(self, carac):
         # assert isinstance(carac, Carac)
