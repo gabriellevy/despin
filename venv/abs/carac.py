@@ -13,35 +13,46 @@ class Carac:
     def __add__(self, other):
         """Ajoute des nombre uniquement"""
         self.m_Valeur += other
+        self.ControlerValeur()
         return self
 
+    def __setattr__(self, nomAttr, valeur):
+        self.__dict__[nomAttr] = valeur
+        if nomAttr == "m_Valeur":
+            self.ControlerValeur()
+
     def __radd__(self, objet_a_ajouter):
-        """Au cas où la carac et l'objet à ajouter son inversés"""
+        """Au cas où la carac et l'objet à ajouter sont inversés"""
         return self + objet_a_ajouter
 
     def __mul__(self, other):
         """Multiplie des nombre uniquement"""
         self.m_Valeur *= other
+        self.ControlerValeur()
         return self
 
     def __truediv__(self, other):
         """Divise des nombre uniquement"""
         self.m_Valeur /= other
+        self.ControlerValeur()
         return self
 
     def __floordiv__(self, other):
         """Divise des nombre uniquement"""
         self.m_Valeur //= other
+        self.ControlerValeur()
         return self
 
     def __mod__(self, other):
         """Modulo des nombre uniquement"""
         self.m_Valeur = self.m_Valeur % other
+        self.ControlerValeur()
         return self
 
     def __pow__(self, autre):
         """Puissance des nombre uniquement"""
         self.m_Valeur = self.m_Valeur ** autre
+        self.ControlerValeur()
         return self
 
     def __ne__(self, autre):
@@ -76,3 +87,9 @@ class Carac:
     def __str__(self):
         """Affichage quand on affiche l'objet (print)"""
         return "{} : {}".format(self.m_Id, self.m_Valeur)
+
+    def ControlerValeur(self):
+        """
+        important dans les caracs surclassant cette carac de base : il peut y avoir un control ou une action à effectuer lors d'une modif de carac
+        """
+        pass

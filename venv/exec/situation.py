@@ -84,10 +84,13 @@ class Situation(metaclass=Singleton):
         # dict_attr["attribut_temporaire"] = 0
         self.__dict__ = dict_attr
 
+    def AjouterCarac(self, carac):
+        self.m_Caracs[carac.m_Id] = carac
+        return carac
+
     def CreerCarac(self, idCarac, valCarac):
         carac = Carac(idCarac, valCarac)
-        self.m_Caracs[idCarac] = carac
-        return carac
+        return self.AjouterCarac(carac)
 
     def SetCarac(self, idCarac, valCarac):
         # si la carac n'existe pas encore, la créer

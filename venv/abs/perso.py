@@ -9,7 +9,13 @@ class Perso():
     def __init__(self):
         self.m_CaracsAffichees = list()
 
-    def AjouterCarac(self, idCarac, valCarac):
+    def CreerCaracVisible(self, idCarac, valCarac):
         self.m_CaracsAffichees.append(idCarac)
         situation = Situation()
         situation.SetCarac(idCarac, valCarac)
+
+    def AjouterCaracVisible(self, carac):
+        # assert isinstance(carac, Carac)
+        self.m_CaracsAffichees.append(carac.m_Id)
+        situation = Situation()
+        situation.AjouterCarac(carac)
