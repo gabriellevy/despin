@@ -16,6 +16,9 @@ class Hist:
         self.m_IdEvts = []  # Liste contenant nos "clés" de la liste d'événements
         self.m_Evts = list();
 
+        self.m_MessageVictoire = "Vous avez gagné"
+        self.m_MessageDefaite = "Vous avez perdu"
+
     def __repr__(self):
         """Représentation de l'histoire en abrégé"""
 

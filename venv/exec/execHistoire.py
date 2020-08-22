@@ -18,6 +18,7 @@ class ExecHistoire(metaclass=Singleton):
     def LancerHistoire(self, histoire, premierEvtId = "", premierEffetId = ""):
         self.m_Histoire = histoire
         situation = Situation()
+        situation.m_PhaseHistoire = PhaseHistoire.EXECUTION
         # gérer persos et caracs ? Affichage graphique ?
         self.m_ExecPerso = ExecPerso(histoire.m_Perso)
 
@@ -52,6 +53,17 @@ class ExecHistoire(metaclass=Singleton):
 
         transitionOk = False
 
+        situation = Situation()
+        if ( situation.m_PhaseHistoire != PhaseHistoire.EXECUTION):
+            # cette partie n'est plus en cours d'exécution
+            if ( situation.m_PhaseHistoire == PhaseHistoire.DEFAITE):
+                self.Defaite(situation)
+            elif ( situation.m_PhaseHistoire == PhaseHistoire.VICTOIRE):
+                self.Victoire(situation)
+            elif ( situation.m_PhaseHistoire == PhaseHistoire.FIN):
+                exit()
+            return
+
         # on considère que l'exécution d'un noeud qui contient du texte sera toujours bloquée par une validation (entrée?)
         # pas besoin si il a déjà marqué une pause pour un choix par exemple
         if not execNoeudActuel.AMarqueUnePause():
@@ -66,6 +78,14 @@ class ExecHistoire(metaclass=Singleton):
         '''
 
         self.LancerEvtEtOuEffetCourant()
+
+    def Defaite(self, situation):
+        print(self.m_Histoire.m_MessageDefaite)
+        situation.m_PhaseHistoire = PhaseHistoire.FIN
+
+    def Victoire(self, situation):
+        print(self.m_Histoire.m_MessageVictoire)
+        situation.m_PhaseHistoire = PhaseHistoire.FIN
 
     def GetExecEvtActuel(self):
         situation = Situation()

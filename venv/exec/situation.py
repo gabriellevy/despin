@@ -2,6 +2,15 @@ import pickle
 import os
 from abs.carac import Carac
 from util.singleton import *
+from enum import Enum
+
+class PhaseHistoire(Enum):
+    LANCE = -1 # le jeu a été lancé mais aucune partie n'est entamée
+    GENERATION = 0
+    EXECUTION = 1
+    DEFAITE = 2 # la partie est perdue mais il peut encore y avoir des choses à afficher/exécuter
+    VICTOIRE = 3 # la partie est gagnée mais il peut encore y avoir des choses à afficher/exécuter
+    FIN = 4 # il n'y a plus rien à faire ou afficher, le jeu va être fermé
 
 # passer cette classe en singleton serait peut-être une bonne idée...
 class Situation(metaclass=Singleton):
@@ -21,6 +30,7 @@ class Situation(metaclass=Singleton):
         self.m_Caracs = dict() # self.m_Caracs[str idCarac] = Carac
         self.SetEvtCourant(None)
         self.SetEffetCourant(None)
+        self.m_PhaseHistoire = PhaseHistoire.LANCE
 
     def SetEvtCourant(self, evt):
         self.m_Caracs[Situation.EVT_COURANT] = evt

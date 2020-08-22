@@ -24,6 +24,8 @@ class GenHist:
         génère toute l'histoire  (donc tous les événements et effets)
         IMPERATIVEMENT surclasser cette fonction dans les créations d'histoires
         """
+        situation = Situation()
+        situation.m_PhaseHistoire = PhaseHistoire.GENERATION
         return self._m_Histoire
 
     def GenererCaracs(self):
