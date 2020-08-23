@@ -35,3 +35,4 @@ class LancerDe:
         """
         if ( self.m_Callback != None):
             self.m_Callback(self.m_CallbackParams)
+        return True
