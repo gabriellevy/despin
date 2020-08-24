@@ -58,9 +58,14 @@ class GenHist:
         self._m_Histoire[id] = evtFinal
         return evtFinal
 
-    def AjouterEffetGoToEffet(self, texte = "", id = "", evt = "", goToEffetId = ""):
-        effet = self.AjouterEffet( texte, id, evt)
+    def AjouterEffetGoToEffet(self, texte = "", id = "", evt = "", goToEffetId = "", titre=""):
+        effet = self.AjouterEffet( texte, id, evt, titre)
         effet.m_GoToEffetId = goToEffetId
+
+    def AjouterEffetDefaite(self, texte = "", id = "", evt = "", titre=""):
+        effet = self.AjouterEffet( texte, id, evt, titre)
+        effet.m_ChangementPhaseHistoire = PhaseHistoire.DEFAITE
+
 
     def AjouterEffet(self, texte = "", id = "", evt = "", goToEffetId="", titre=""):
         if evt == "":

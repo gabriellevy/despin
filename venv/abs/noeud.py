@@ -17,6 +17,7 @@ class Noeud:
         self.m_GoToEvtId = None
         self.m_GoToEffetId = None
         self.m_SetsCaracs = list()
+        self.m_ChangementPhaseHistoire = None
 
     def _get_m_Id(self):
         return self._m_Id

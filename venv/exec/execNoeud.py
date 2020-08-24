@@ -20,6 +20,10 @@ class ExecNoeud:
         for changeCarac in self.m_NoeudAExecuter.m_SetsCaracs:
             changeCarac.Appliquer()
 
+        if self.m_NoeudAExecuter.m_ChangementPhaseHistoire != None:
+            situation = Situation()
+            situation.m_PhaseHistoire = self.m_NoeudAExecuter.m_ChangementPhaseHistoire
+
     def QuelquechoseAAfficher(self):
         """
         :return: True si l'execNoeud doit faire une pause pour afficher quelque chose
