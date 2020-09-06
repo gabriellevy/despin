@@ -53,11 +53,11 @@ class ExecNoeud:
     def AppliquerGoTo(self):
         """
         cherche si le noeud courant contient un saut vers un autre effet ou evt et l'applique
-        :return: true si il y a un go to qui a été appliqué
+        :return: true si il y a un go to qui existe même si l'application a foiré
         """
         if self.TesterCondition():
             if ( self.m_NoeudAExecuter.m_GoToEffetId != None):
                 self.m_ExecHistoire.GoToEffetId(self.m_NoeudAExecuter.m_GoToEffetId)
-                return True
+            return True
 
         return False
