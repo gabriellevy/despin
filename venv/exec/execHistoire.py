@@ -37,23 +37,28 @@ class ExecHistoire(metaclass=Singleton):
     def LancerEvtEtOuEffetCourant(self):
         quelqueChoseAffiche = False
         execNoeudActuel = self.GetExecEvtActuel()
-        if execNoeudActuel.m_NoeudAExecuter.m_Execute:
+        if execNoeudActuel.m_NoeudAExecuter.m_Parcouru:
             execNoeudActuel = self.GetExecEffetActuel()
-        if execNoeudActuel.m_NoeudAExecuter.m_Execute:
+        if execNoeudActuel.m_NoeudAExecuter.m_Parcouru:
             execNoeudActuel = self.GetExecChoixActuel()
 
-        assert (not execNoeudActuel.m_NoeudAExecuter.m_Execute), "execNoeudActuel actuel déjà exécuté : \n{}".format(execNoeudActuel)
+        assert (not execNoeudActuel.m_NoeudAExecuter.m_Parcouru), "execNoeudActuel actuel déjà exécuté : \n{}".format(execNoeudActuel)
         assert (execNoeudActuel is not None), "execNoeudActuel actuel introuvable"
 
-        if not execNoeudActuel.m_NoeudAExecuter.m_Execute:
-            execNoeudActuel.LancerNoeud()
-            execNoeudActuel.m_NoeudAExecuter.m_Execute = True
-            quelqueChoseAffiche = execNoeudActuel.QuelquechoseAAfficher()
-            print(self.m_ExecPerso) # affichage des caracs actuelles du personnage (mises à jour)
+        situation = Situation()
+        if not execNoeudActuel.m_NoeudAExecuter.m_Parcouru:
+            # même si on est passé on affiche des choses seulement si la condition est validée :
+            if execNoeudActuel.TesterCondition():
+                execNoeudActuel.LancerNoeud()
+                quelqueChoseAffiche = execNoeudActuel.QuelquechoseAAfficher()
+                execNoeudActuel.EnregistrerVisite()
+                print(self.m_ExecPerso) # affichage des caracs actuelles du personnage (mises à jour)
+
+            # on enregistre qu'on est passé par ce noeud :
+            execNoeudActuel.m_NoeudAExecuter.m_Parcouru = True
 
         transitionOk = False
 
-        situation = Situation()
         if ( situation.m_PhaseHistoire != PhaseHistoire.EXECUTION):
             # cette partie n'est plus en cours d'exécution
             if ( situation.m_PhaseHistoire == PhaseHistoire.DEFAITE):
@@ -71,11 +76,15 @@ class ExecHistoire(metaclass=Singleton):
                 valider = input("Validez pour continuer")
 
         transitionOk = execNoeudActuel.AppliquerGoTo()
-        '''
+
         # transition vers noeud courant suivant automatiquement (sans go to):
         if not transitionOk:
-            if isinstance(execNoeudActuel, ExecEvt):
-        '''
+            if isinstance(execNoeudActuel, ExecEffet):
+                # récupérer l'effet suivant c'est à dire l'effet suivant de l'évt de l'effet actuel :
+                effetSuivant = self.GetEvtActuel().EffetSuivant(execNoeudActuel.m_Effet.m_Id)
+                assert effetSuivant != None, "TODO : passer à événement suivant ?"
+                self.GoToEffetId(effetSuivant.m_Id)
+
 
         self.LancerEvtEtOuEffetCourant()
 

@@ -1,11 +1,17 @@
 from exec.situation import *
 from exec.execHistoire import *
+from abs.condition import *
 
 class ExecNoeud:
 
     def __init__(self, noeudAExecuter, execHistoire):
         self.m_NoeudAExecuter = noeudAExecuter
         self.m_ExecHistoire = execHistoire
+
+    def EnregistrerVisite(self):
+        id = "{}{}".format(Situation.PREFIXE_NOEUD_VISITE, self.m_NoeudAExecuter.m_Id )
+        situation = Situation()
+        situation.SetCarac(id, "1")
 
     # def ExecuterActionsNoeud(self, noeudAExecuter):
         """
@@ -15,7 +21,7 @@ class ExecNoeud:
         # self.m_NoeudAExecuter = noeudAExecuter
 
     def LancerNoeud(self):
-        self.m_NoeudAExecuter.m_Execute = True
+        self.m_NoeudAExecuter.m_Parcouru = True
 
         for changeCarac in self.m_NoeudAExecuter.m_SetsCaracs:
             changeCarac.Appliquer()
@@ -37,13 +43,21 @@ class ExecNoeud:
         """
         return False
 
+
+    def TesterCondition(self):
+        for condition in self.m_NoeudAExecuter.m_Conditions:
+            if not condition.Tester():
+                return False
+        return True
+
     def AppliquerGoTo(self):
         """
         cherche si le noeud courant contient un saut vers un autre effet ou evt et l'applique
         :return: true si il y a un go to qui a été appliqué
         """
-        if ( self.m_NoeudAExecuter.m_GoToEffetId != None):
-            self.m_ExecHistoire.GoToEffetId(self.m_NoeudAExecuter.m_GoToEffetId)
-            return True
+        if self.TesterCondition():
+            if ( self.m_NoeudAExecuter.m_GoToEffetId != None):
+                self.m_ExecHistoire.GoToEffetId(self.m_NoeudAExecuter.m_GoToEffetId)
+                return True
 
         return False

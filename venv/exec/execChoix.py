@@ -12,7 +12,7 @@ class ExecChoix(ExecNoeud):
         chaine = "ExecChoix : "
         chaine += self.m_Choix.m_Id
         chaine += "\n"
-        if (self.m_NoeudAExecuter.m_Execute):
+        if (self.m_NoeudAExecuter.m_Parcouru):
             chaine += "Déjà exécuté"
         else:
             chaine += "Pas encore exécuté"

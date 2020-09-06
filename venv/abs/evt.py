@@ -84,6 +84,13 @@ class Evt(NoeudNarration):
         """Comme histoire est essentiellement un conteneur d'effets ses fonctions d'accès sont surchargés par commodité"""
         return self.m_Effets.__len__()
 
+    def EffetSuivant(self, idEffetActuel):
+        indice = self.m_IdEffets.index(idEffetActuel)
+        indice = indice + 1
+        if ( indice >= len(self.m_IdEffets)):
+            return None
+        return  self.m_Effets[indice]
+
     def ParcourirEffets(self):
         """pseudo itérateur des effets de l'événement"""
         for effet in self.m_Effets:

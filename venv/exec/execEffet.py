@@ -1,5 +1,6 @@
 from exec.execChoix import *
 from abs.lancerDe import *
+from exec.situation import *
 
 class ExecEffet(ExecNoeud):
 
@@ -45,6 +46,11 @@ class ExecEffet(ExecNoeud):
     def QuelquechoseAAfficher(self):
         return self.m_Effet.m_Texte != None and self.m_Effet.m_Texte != ""
 
+    def EnregistrerVisite(self):
+        id = "{}{}".format(Situation.PREFIXE_EFFET_VISITE, self.m_Effet.m_Id )
+        situation = Situation()
+        situation.SetCarac(id, "1")
+
     def AMarqueUnePause(self):
         """
 
@@ -57,7 +63,7 @@ class ExecEffet(ExecNoeud):
         chaine = "ExecEffet : "
         chaine += self.m_Effet.m_Id
         chaine += "\n"
-        if (self.m_NoeudAExecuter.m_Execute):
+        if (self.m_NoeudAExecuter.m_Parcouru):
             chaine += "Déjà exécuté"
         else:
             chaine += "Pas encore exécuté"

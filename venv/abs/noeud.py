@@ -11,9 +11,8 @@ class Noeud:
         """Constructeur"""
         self._m_Id = id
         # TODO MATHIEU : changeur de perso
-        # TODO MATHIEU : modificateur de caracs (SetCarac)
         self.m_Conditions = list()
-        self.m_Execute = False # est-ce que ce noeud a déjà été exécuté ?
+        self.m_Parcouru = False # est-ce que ce noeud a déjà été parcouru ? (que sa condition ait ou non autorisé son exécution, il compte quand même comme parcouru)
         self.m_GoToEvtId = None
         self.m_GoToEffetId = None
         self.m_SetsCaracs = list()
@@ -30,6 +29,9 @@ class Noeud:
              cette méthode. On affiche une alerte"""
         print("Alerte ! Il n'y a pas d'attribut '{}' dans l'objet '{}' !".format(nom, self))
 
+    def AjouterCondition(self, caracId, valeur, comparateur):
+        condition = Condition(caracId, valeur, comparateur)
+        self.m_Conditions.append(condition)
 
     def AjouterRetireurACarac( id, valeur):
         setCarac = SetCarac(id, ModifCaracType.RETIRE, valeur)

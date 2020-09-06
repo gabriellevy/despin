@@ -20,6 +20,11 @@ class ExecEvt(ExecNoeud):
             self.m_ExecEffetActuel = ExecEffet(effetCourant, self.m_ExecHistoire)
         return self.m_ExecEffetActuel
 
+    def EnregistrerVisite(self):
+        id = "{}{}".format(Situation.PREFIXE_EVT_VISITE, self.m_Evt.m_Id )
+        situation = Situation()
+        situation.SetCarac(id, "1")
+
     def SetExecEffetActuel(self, execEffetActuel):
         self.m_ExecEffetActuel = execEffetActuel
 
@@ -35,7 +40,7 @@ class ExecEvt(ExecNoeud):
         chaine = "ExecEvt : "
         chaine += self.m_Evt.m_Id
         chaine += "\n"
-        if (self.m_NoeudAExecuter.m_Execute):
+        if (self.m_NoeudAExecuter.m_Parcouru):
             chaine += "Déjà exécuté"
         else:
             chaine += "Pas encore exécuté"

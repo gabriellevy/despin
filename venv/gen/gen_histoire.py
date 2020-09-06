@@ -4,6 +4,7 @@ from abs.effet import *
 from abs.choix import *
 from abs.perso import *
 from abs.setCarac import *
+from abs.condition import *
 
 class GenHist:
     """
@@ -66,6 +67,10 @@ class GenHist:
         effet = self.AjouterEffet( texte, id, evt, titre)
         effet.m_ChangementPhaseHistoire = PhaseHistoire.DEFAITE
 
+    def AjouterEffetGoToSiDejaVisite(self, goToEffetId, id):
+        effet = self.AjouterEffet( goToEffetId = goToEffetId, id = id)
+        idCarac = "{}{}".format(Situation.PREFIXE_EFFET_VISITE, id)
+        effet.AjouterCondition(idCarac, "1", Comparateur.EGAL)
 
     def AjouterEffet(self, texte = "", id = "", evt = "", goToEffetId="", titre=""):
         if evt == "":

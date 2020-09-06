@@ -120,6 +120,24 @@ class Situation(metaclass=Singleton):
         finalVal = self.m_Caracs[idCarac].m_Valeur - valCarac
         self.SetCarac(idCarac, finalVal)
 
+    def GetValCarac(self, idCarac):
+        if ( idCarac not in self.m_Caracs):
+            return ""
+        return self.m_Caracs[idCarac].m_Valeur
+
+    PREFIXE_EFFET_VISITE = "Effet_visité_" # sert de préfixe pour les caracs qui sont des enregistrements d'effets visités
+    PREFIXE_EVT_VISITE = "Evt_visité_"
+    PREFIXE_NOEUD_VISITE = "Noeud_visité_"
+
+    def GetAVisiteEffetIdCarac(self, idEffet):
+        """
+
+        :param idEffet: id de l'effet à tester
+        :return: true si le joueur a déjà visité un effet ayant cet id
+        """
+        id = "{}{}".format(Situation.PREFIXE_EFFET_VISITE, idEffet )
+        return self.GetValCarac(id) == "1"
+
 '''
 print("------tests Situation")
 situation = Situation()
