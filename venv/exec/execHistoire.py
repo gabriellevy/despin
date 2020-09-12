@@ -6,6 +6,14 @@ from exec.execEvt import *
 from exec.situation import *
 from util.singleton import *
 from exec.execPerso import *
+import signal
+import sys
+
+def FermerProgramme(signal, frame):
+    """Fonction appelée quand vient l'heure de fermer notre programme"""
+    print("C'est l'heure de la fermeture !")
+    #self.m_Situation.Sauver()
+    sys.exit(0)
 
 class ExecHistoire(metaclass=Singleton):
 
@@ -14,6 +22,8 @@ class ExecHistoire(metaclass=Singleton):
         self.m_ExecEvtCourant = None
         self.m_ExecChoixActuel = None
         self.m_ExecPerso = None
+        # TODO : ces signaux ne sont pas attrapés lors de la fin d'exécution sous pychar, essayer sous console...?
+        signal.signal(signal.SIGINT, FermerProgramme)
 
     def LancerHistoire(self, histoire, premierEvtId = "", premierEffetId = ""):
         self.m_Histoire = histoire
@@ -124,3 +134,18 @@ class ExecHistoire(metaclass=Singleton):
         effetToGoTo = self.GetEvtActuel()[effetId]
         situation.SetEffetCourant(effetToGoTo)
         self.SetExecEffetActuel(ExecEffet(effetToGoTo, self))
+
+'''
+def fermer_programme(signal, frame):
+    """Fonction appelée quand vient l'heure de fermer notre programme"""
+    print("C'est l'heure de la fermeture !")
+    sys.exit(0)
+
+# Connexion du signal à notre fonction
+signal.signal(signal.SIGTERM, fermer_programme)
+
+# Notre programme...
+print("Le programme va boucler...")
+while True:
+    continue
+'''

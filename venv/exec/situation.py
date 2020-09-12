@@ -51,6 +51,7 @@ class Situation(metaclass=Singleton):
         soit un dictionnaire vide.
 
         Pour l'instant utilise nom_fichier"""
+        print("Chargement des caracs")
 
         if os.path.exists(Situation.NOM_FICHIER):  # Le fichier existe
             # On le récupère
@@ -65,6 +66,7 @@ class Situation(metaclass=Singleton):
     def Sauver(self):
         """Cette fonction se charge d'enregistrer les caracs dans le fichier
         nom_fichier"""
+        print("Enregistrement des caracs")
 
         fichier = open(Situation.NOM_FICHIER, "wb")  # On écrase les anciens scores
         mon_pickler = pickle.Pickler(fichier)
