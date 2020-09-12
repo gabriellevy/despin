@@ -67,6 +67,10 @@ class GenHist:
         effet = self.AjouterEffet( texte, id, evt, titre)
         effet.m_ChangementPhaseHistoire = PhaseHistoire.DEFAITE
 
+    def AjouterEffetFin(self, texte = "", id = "", evt = "", titre=""):
+        effet = self.AjouterEffet( texte, id, evt, titre)
+        effet.m_ChangementPhaseHistoire = PhaseHistoire.FIN
+
     def AjouterEffetGoToSiDejaVisite(self, goToEffetId, id):
         effet = self.AjouterEffet( goToEffetId = goToEffetId, id = id)
         idCarac = "{}{}".format(Situation.PREFIXE_EFFET_VISITE, id)
