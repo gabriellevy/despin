@@ -1,4 +1,4 @@
-from random import randrange
+from random import randint
 
 class LancerDe:
     """
@@ -22,17 +22,15 @@ class LancerDe:
     def CalculerResDe(self):
         listeRes = self.GetListeResDes()
         resTotal = 0
-        i = 0
-        while i < len(listeRes):
-            resTotal += listeRes(i)
-            i+=1
+        for resDe in listeRes:
+            resTotal += resDe
         return resTotal
 
     def GetListeResDes(self):
         res = list()
         i = 0
         while i < self.m_NbDes:
-            res.append(randrange(1,7))
+            res.append(randint(1,6))
             i+=1
         return res
 
